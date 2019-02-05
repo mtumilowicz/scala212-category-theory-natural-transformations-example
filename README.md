@@ -12,3 +12,7 @@ length (x:xs) = Const (1 + unConst (length xs))
 
 unConst :: Const c a -> c
 unConst (Const x) = x
+
+alpha :: Reader () a -> Maybe a
+dumb (Reader _) = Nothing
+obvious (Reader g) = Just (g ())
