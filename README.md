@@ -57,12 +57,20 @@ for every morphism in C (naturality condition)
         ```
         **obviously:** `list.length` is much easier
 * Reader -> Option
-    * For every type e, you can define a family of natural transformations from Reader e to any other functor f
-    * Reader () takes any type a and maps it into a function type ()->a. These are just all the functions that pick a single element from the set a
-    * alpha :: Reader () a -> Maybe a
-        * dumb (Reader _) = Nothing
-        * obvious (Reader g) = Just (g ())
-    
+    * For every type e, you can define a family of natural transformations from `Reader e` to any other functor `f`
+    * `Reader ()` takes any type `a` and maps it into a function type `()->a`. 
+        These are just all the functions that pick a single element from the set `a`.
+    * haskell
+        * `alpha :: Reader () a -> Maybe a`
+        * `dumb (Reader _) = Nothing`
+        * `obvious (Reader g) = Just (g ())`
+    * scala
+        ```
+        object ReaderOptionNaturalTransformation {
+          def trivial[A](reader: Reader[Unit, A]): Option[A] = None
+          def obvious[A](reader: Reader[Unit, A]): Option[A] = Some(reader())
+        }
+        ```
 
 # polymorphic function
 * αa :: F a -> G a
