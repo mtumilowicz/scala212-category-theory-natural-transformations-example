@@ -4,8 +4,6 @@
 object ListLengthAsNaturalTransformation {
   def lengthOf[A](list: List[A]): Const[Int, A] = list match {
     case Nil => Const(0)
-    case x :: xs => Const(1 + unConst(lengthOf(xs)))
+    case x :: xs => Const(1 + lengthOf(xs).param)
   }
-  
-  def unConst[X, Y](const: Const[X, Y]): X = const.param
 }
