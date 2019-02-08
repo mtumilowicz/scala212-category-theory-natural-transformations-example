@@ -1,4 +1,6 @@
+import functor.{Const, Reader}
 import org.scalatest.{FunSuite, Matchers}
+import transformation._
 
 /**
   * Created by mtumilowicz on 2019-02-05.
@@ -6,30 +8,30 @@ import org.scalatest.{FunSuite, Matchers}
 class NaturalTransformationsTest extends FunSuite with Matchers {
 
   test("list -> option: safe head") {
-    ListOptionNaturalTransformation.safeHead(List(1)) should be(Some(1))
-    ListOptionNaturalTransformation.safeHead(List()) should be(None)
+    ListToOption.safeHead(List(1)) should be(Some(1))
+    ListToOption.safeHead(List()) should be(None)
   }
   
   test("option -> list") {
-    OptionListNaturalTransformation.toList(None) should be (List())
-    OptionListNaturalTransformation.toList(Some(1)) should be (List(1))
+    OptionToList.toList(None) should be (List())
+    OptionToList.toList(Some(1)) should be (List(1))
   }
 
   test("reader -> option: trivial, obvious") {
     def reader: Reader[Unit, String] = _ => "a"
 
-    ReaderUnitOptionNaturalTransformation.trivial(reader) should be(None)
-    ReaderUnitOptionNaturalTransformation.obvious(reader) should be(Some("a"))
+    ReaderUnitToOption.trivial(reader) should be(None)
+    ReaderUnitToOption.obvious(reader) should be(Some("a"))
   }
   test("reader -> list: trivial, obvious") {
     def reader: Reader[Unit, String] = _ => "a"
 
-    ReaderUnitListNaturalTransformation.trivial(reader) should be(List())
-    ReaderUnitListNaturalTransformation.obvious(reader) should be(List("a"))
+    ReaderUnitToList.trivial(reader) should be(List())
+    ReaderUnitToList.obvious(reader) should be(List("a"))
   }
 
   test("[a] -> const int a: length") {
-    ListLengthAsNaturalTransformation.lengthOf(List()) should be(Const(0))
-    ListLengthAsNaturalTransformation.lengthOf(List(1, 2, 3, 4)) should be(Const(4))
+    ListToInt.lengthOf(List()) should be(Const(0))
+    ListToInt.lengthOf(List(1, 2, 3, 4)) should be(Const(4))
   }
 }

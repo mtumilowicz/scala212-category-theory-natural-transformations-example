@@ -1,3 +1,5 @@
+package functor
+
 /**
   * Created by mtumilowicz on 2019-02-05.
   */
