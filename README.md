@@ -33,6 +33,7 @@ and repackage later; or repackage first, and then modify the items in the new co
     is always a natural transformation
 
 # project description
+We will provide easy examples of polymorphic functions (natural transformations) in scala
 * safeHead
     * haskell
         ```
@@ -69,12 +70,14 @@ and repackage later; or repackage first, and then modify the items in the new co
         **obviously:** `list.length` is much easier
 * Reader -> Option
     * For every type e, you can define a family of natural transformations from `Reader e` to any other functor `f`
-    * `Reader ()` takes any type `a` and maps it into a function type `()->a`. 
-        These are just all the functions that pick a single element from the set `a`.
+    * `Reader ()` takes any type `a` and maps it into a function type `()->a` - all the functions that 
+        pick a single element from the set `a`
+    * we could think about `Reader ()` as a supplier
     * haskell
         * `alpha :: Reader () a -> Maybe a`
-        * `dumb (Reader _) = Nothing`
-        * `obvious (Reader g) = Just (g ())`
+        * only two possible implementations:
+            * `dumb (Reader _) = Nothing`
+            * `obvious (Reader g) = Just (g ())`
     * scala
         ```
         object ReaderOptionNaturalTransformation {
@@ -82,3 +85,22 @@ and repackage later; or repackage first, and then modify the items in the new co
           def obvious[A](reader: Reader[Unit, A]): Option[A] = Some(reader())
         }
         ```
+# tests
+* `NaturalTransformationsTest`
+* list -> option: safe head
+    ```
+    ListOptionNaturalTransformation.safeHead(List(1)) should be(Some(1))
+    ListOptionNaturalTransformation.safeHead(List()) should be(None)
+    ```
+* reader -> option: trivial, obvious
+    ```
+    def reader: Reader[Unit, String] = _ => "a"
+    
+    ReaderOptionNaturalTransformation.trivial(reader) should be(None)
+    ReaderOptionNaturalTransformation.obvious(reader) should be(Some("a"))
+    ```
+* [a] -> const int a: length
+    ```
+    ListLengthAsNaturalTransformation.lengthOf(List()) should be(Const(0))
+    ListLengthAsNaturalTransformation.lengthOf(List(1, 2, 3, 4)) should be(Const(4))
+    ```
