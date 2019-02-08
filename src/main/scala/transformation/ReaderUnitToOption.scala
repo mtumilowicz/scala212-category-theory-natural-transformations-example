@@ -1,5 +1,7 @@
 package transformation
 
+import functor.Reader
+
 /**
   * Created by mtumilowicz on 2019-02-07.
   */
