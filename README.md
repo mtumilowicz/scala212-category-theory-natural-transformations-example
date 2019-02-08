@@ -25,9 +25,9 @@ and repackage later; or repackage first, and then modify the items in the new co
 
 
 # polymorphic function
-* αa :: F a -> G a
-* pseudo-haskell: alpha_a :: F a -> G a
-* pseudo-scala: def alpha_a[A](F: F[A]): G[A]
+* `αa :: F a -> G a`
+* pseudo-haskell: `alpha_a :: F a -> G a`
+* pseudo-scala: `def alpha_a[A](F: F[A]): G[A]`
 * naturality condition: `mapG f . alpha_a = alpha_b . mapF f`
 * a parametrically polymorphic function between two functors 
     is always a natural transformation
