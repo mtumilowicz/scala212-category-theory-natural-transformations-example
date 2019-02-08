@@ -99,7 +99,7 @@ We will provide easy examples of polymorphic functions (natural transformations)
     ReaderOptionNaturalTransformation.trivial(reader) should be(None)
     ReaderOptionNaturalTransformation.obvious(reader) should be(Some("a"))
     ```
-* [a] -> const int a: length
+* `[a] -> const int a: length`
     ```
     ListLengthAsNaturalTransformation.lengthOf(List()) should be(Const(0))
     ListLengthAsNaturalTransformation.lengthOf(List(1, 2, 3, 4)) should be(Const(4))
