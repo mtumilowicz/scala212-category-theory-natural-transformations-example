@@ -34,7 +34,7 @@ and repackage later; or repackage first, and then modify the items in the new co
 
 # project description
 We will provide easy examples of polymorphic functions (natural transformations) in scala
-* take the first element of the list if exists and wrap it with Option
+* list -> option (some(head) or none)
     * haskell
         ```
         safeHead :: [a] -> Maybe a
@@ -49,6 +49,14 @@ We will provide easy examples of polymorphic functions (natural transformations)
         }
         ```
         **note that list has build-in exactly that method:** `list.headOption`
+* option -> list (one elem or empty)
+    ```
+    def toList[A](option: Option[A]): List[A] = option match {
+      case None => Nil
+      case Some(x) => List(x)
+    }
+    ```
+    **note that option has build-in exactly that method:** `option.toList`
 * length
     * Const: https://github.com/mtumilowicz/scala212-category-theory-const-functor
     * haskell
@@ -91,6 +99,11 @@ We will provide easy examples of polymorphic functions (natural transformations)
     ```
     ListOptionNaturalTransformation.safeHead(List(1)) should be(Some(1))
     ListOptionNaturalTransformation.safeHead(List()) should be(None)
+    ```
+* option -> list
+    ```
+    OptionListNaturalTransformation.toList(None) should be (List())
+    OptionListNaturalTransformation.toList(Some(1)) should be (List(1))
     ```
 * reader -> option: trivial, obvious
     ```
