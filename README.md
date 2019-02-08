@@ -57,7 +57,7 @@ We will provide easy examples of polymorphic functions (natural transformations)
     }
     ```
     **note that option has build-in exactly that method:** `option.toList`
-* length
+* list a -> int (const int a): length
     * Const: https://github.com/mtumilowicz/scala212-category-theory-const-functor
     * haskell
         ```
@@ -109,6 +109,12 @@ We will provide easy examples of polymorphic functions (natural transformations)
       toList.compose(trivial).apply(reader)
     }
     ```
+* reader boolean a -> option a: three transformations
+    ```
+    def trivial[A](reader: Reader[Boolean, A]): Option[A] = None
+    def truth[A](reader: Reader[Boolean, A]): Option[A] = Some(reader(true))
+    def untruth[A](reader: Reader[Boolean, A]): Option[A] = Some(reader(false))
+    ```
 # tests
 * `NaturalTransformationsTest`
 * list -> option: safe head
@@ -136,7 +142,13 @@ We will provide easy examples of polymorphic functions (natural transformations)
     def obvious[A](reader: Reader[Unit, A]): List[A] =
       OptionListNaturalTransformation.toList[A].compose(ReaderOptionNaturalTransformation.obvious[A]).apply(reader)
     ```
-* `[a] -> const int a: length`
+* reader boolean a -> option a: three transformations
+    ```
+    def trivial[A](reader: Reader[Boolean, A]): Option[A] = None
+    def truth[A](reader: Reader[Boolean, A]): Option[A] = Some(reader(true))
+    def untruth[A](reader: Reader[Boolean, A]): Option[A] = Some(reader(false))
+    ```
+* list a -> const int a: length
     ```
     ListLengthAsNaturalTransformation.lengthOf(List()) should be(Const(0))
     ListLengthAsNaturalTransformation.lengthOf(List(1, 2, 3, 4)) should be(Const(4))
