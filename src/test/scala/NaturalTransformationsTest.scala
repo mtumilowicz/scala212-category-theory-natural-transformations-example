@@ -21,6 +21,12 @@ class NaturalTransformationsTest extends FunSuite with Matchers {
     ReaderOptionNaturalTransformation.trivial(reader) should be(None)
     ReaderOptionNaturalTransformation.obvious(reader) should be(Some("a"))
   }
+  test("reader -> list: trivial, obvious") {
+    def reader: Reader[Unit, String] = _ => "a"
+
+    ReaderListNaturalTransformation.trivial(reader) should be(List())
+    ReaderListNaturalTransformation.obvious(reader) should be(List("a"))
+  }
 
   test("[a] -> const int a: length") {
     ListLengthAsNaturalTransformation.lengthOf(List()) should be(Const(0))
