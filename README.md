@@ -34,7 +34,7 @@ and repackage later; or repackage first, and then modify the items in the new co
 
 # project description
 We will provide easy examples of polymorphic functions (natural transformations) in scala
-* safeHead
+* take the first element of the list if exists and wrap it with Option
     * haskell
         ```
         safeHead :: [a] -> Maybe a
