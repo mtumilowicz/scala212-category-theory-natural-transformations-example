@@ -9,6 +9,11 @@ class NaturalTransformationsTest extends FunSuite with Matchers {
     ListOptionNaturalTransformation.safeHead(List(1)) should be(Some(1))
     ListOptionNaturalTransformation.safeHead(List()) should be(None)
   }
+  
+  test("option -> list") {
+    OptionListNaturalTransformation.toList(None) should be (List())
+    OptionListNaturalTransformation.toList(Some(1)) should be (List(1))
+  }
 
   test("reader -> option: trivial, obvious") {
     def reader: Reader[Unit, String] = _ => "a"
