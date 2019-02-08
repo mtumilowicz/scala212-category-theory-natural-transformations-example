@@ -5,21 +5,32 @@ https://bartoszmilewski.com/2015/04/07/natural-transformations/
 # preview
 * consider two functors `F` and `G` between categories `C` and `D`
 * a natural transformation is a selection of morphisms: 
-    for every object a, it picks one morphism from F a to G a. 
-    If we call the natural transformation α, this morphism is 
-    called the component of α at a, or αa.
-* αa :: F a -> G a
-* a is an object in C while αa is a morphism in D
-* If, for some a, there is no morphism between F a and G a in D, there can be no natural transformation between F and G.
-* naturality condition: G f ∘ αa = αb ∘ F f
+    for every object `a`, it picks one morphism from `F a` to `G a`. 
+    If we call the natural transformation `α,` this morphism is 
+    called the component of `α` at `a`, or `αa`.
+* `αa :: F a -> G a`
+* `a` is an object in `C` while `αa` is a morphism in `D`
+* if, for some `a`, there is no morphism between `F a` and `G a` in `D`, 
+    there can be no natural transformation between `F` and `G`
+* naturality condition: `G f ∘ αa = αb ∘ F f`
+* we can think about functors as generalized containers 
+* we can consider natural transformations to be recipes for repackaging the contents of one container into 
+    another and **we are not touching the items themselves**
+* naturality condition: it doesn’t matter whether we modify the items first (fmap), 
+and repackage later; or repackage first, and then modify the items in the new container (with new fmap)
 * existence of natural transformations between two functors is far from guaranteed
 * it maps objects to morphisms
-* it maps morphisms to commuting squares — there is one commuting naturality square in D 
-for every morphism in C (naturality condition)
+* it maps morphisms to commuting squares — there is one commuting naturality square in `D` 
+    for every morphism in `C` (naturality condition)
 
-* naturality condition becomes the statement that it doesn’t matter whether we modify the items first, through the application of fmap, and repackage later; or repackage first, and then modify the items in the new container, with its own implementation of fmap
 
-* One way of thinking about functors in Haskell that I mentioned earlier is to consider them generalized containers. We can continue this analogy and consider natural transformations to be recipes for repackaging the contents of one container into another container. We are not touching the items themselves
+# polymorphic function
+* αa :: F a -> G a
+* pseudo-haskell: alpha_a :: F a -> G a
+* pseudo-scala: def alpha_a[A](F: F[A]): G[A]
+* naturality condition: `mapG f . alpha_a = alpha_b . mapF f`
+* a parametrically polymorphic function between two functors 
+    is always a natural transformation
 
 # project description
 * safeHead
@@ -71,22 +82,3 @@ for every morphism in C (naturality condition)
           def obvious[A](reader: Reader[Unit, A]): Option[A] = Some(reader())
         }
         ```
-
-# polymorphic function
-* αa :: F a -> G a
-* pseudo-haskell: alpha_a :: F a -> G a
-* pseudo-scala: def alpha_a[A](F: F[A]): G[A]
-* naturality condition: `mapG f . alpha_a = alpha_b . mapF f`
-
-
-# definition
-
-αa :: F a -> G a
-Keep in mind that a is an object in C while αa is a morphism in D.
-
-If, for some a, there is no morphism between F a and G a in D, there can be no natural transformation between F and G.
-
-
-alpha :: Reader () a -> Maybe a
-dumb (Reader _) = Nothing
-obvious (Reader g) = Just (g ())
