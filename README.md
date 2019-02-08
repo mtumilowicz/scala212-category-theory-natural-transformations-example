@@ -76,7 +76,7 @@ We will provide easy examples of polymorphic functions (natural transformations)
         }
         ```
         **obviously:** `list.length` is much easier
-* reader -> option
+* reader () a -> option a
     * for every type e, you can define a family of natural transformations from `Reader e` to any other functor `f`
     * `Reader ()` takes any type `a` and maps it into a function type `()->a` - all the functions that 
         pick a single element from the set `a`
@@ -93,7 +93,7 @@ We will provide easy examples of polymorphic functions (natural transformations)
           def obvious[A](reader: Reader[Unit, A]): Option[A] = Some(reader())
         }
         ```
-* reader -> list: trivial, obvious (composition of defined above natural transformations)
+* reader () a -> list a: trivial, obvious (composition of defined above natural transformations)
     ```
     def trivial[A](reader: Reader[Unit, A]): List[A] = {
       val toList = (option: Option[A]) => OptionListNaturalTransformation.toList(option)
@@ -121,14 +121,14 @@ We will provide easy examples of polymorphic functions (natural transformations)
     OptionListNaturalTransformation.toList(None) should be (List())
     OptionListNaturalTransformation.toList(Some(1)) should be (List(1))
     ```
-* reader -> option: trivial, obvious
+* reader () a -> option a: trivial, obvious
     ```
     def reader: Reader[Unit, String] = _ => "a"
     
     ReaderOptionNaturalTransformation.trivial(reader) should be(None)
     ReaderOptionNaturalTransformation.obvious(reader) should be(Some("a"))
     ```
-* reader -> list: trivial, obvious (composition of defined above natural transformations)
+* reader () a -> list a: trivial, obvious (composition of defined above natural transformations)
     ```
     def trivial[A](reader: Reader[Unit, A]): List[A] =
       OptionListNaturalTransformation.toList[A].compose(ReaderOptionNaturalTransformation.trivial[A]).apply(reader)
