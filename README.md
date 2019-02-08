@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mtumilowicz/scala212-category-theory-natural-transformations-example.svg?token=PwyvjePQ7aiAX51hSYLE&branch=master)](https://travis-ci.com/mtumilowicz/scala212-category-theory-natural-transformations-example)
+
 # scala212-category-theory-natural-transformations-example
 
 https://bartoszmilewski.com/2015/04/07/natural-transformations/
