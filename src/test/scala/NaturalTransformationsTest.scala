@@ -42,7 +42,7 @@ class NaturalTransformationsTest extends FunSuite with Matchers {
     }
     
     ReaderBooleanToOption.trivial(reader) should be (None)
-    ReaderBooleanToOption.truth(reader) should be (Some("true"))
-    ReaderBooleanToOption.untruth(reader) should be (Some("false"))
+    ReaderBooleanToOption.truth(reader) should be (Some("truth"))
+    ReaderBooleanToOption.untruth(reader) should be (Some("untruth"))
   }
 }
