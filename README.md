@@ -146,9 +146,9 @@ We will provide easy examples of polymorphic functions (natural transformations)
     ```
 * reader boolean a -> option a: three transformations
     ```
-    def trivial[A](reader: Reader[Boolean, A]): Option[A] = None
-    def truth[A](reader: Reader[Boolean, A]): Option[A] = Some(reader(true))
-    def untruth[A](reader: Reader[Boolean, A]): Option[A] = Some(reader(false))
+    ReaderBooleanToOption.trivial(reader) should be (None)
+    ReaderBooleanToOption.truth(reader) should be (Some("true"))
+    ReaderBooleanToOption.untruth(reader) should be (Some("false"))
     ```
 * list a -> const int a: length
     ```
